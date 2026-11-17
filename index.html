@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>双层线网 · 三维绘图</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="geometry.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="brand-icon" aria-hidden="true">◇</span><div><h1>双层线网</h1><span>三维绘图与连通分析</span></div></div>
+    <div class="actions">
+      <button id="demo">载入示例</button>
+      <button id="undo" title="撤销上一步 (Ctrl+Z)">↶ 撤销</button>
+      <button id="clear">清空</button>
+    </div>
+  </header>
+  <main>
+    <section class="workspace" aria-label="绘图工作区">
+      <div class="toolbar">
+        <div class="button-group" aria-label="绘图工具">
+          <button data-mode="orbit" aria-pressed="true"><span aria-hidden="true">✥</span> 浏览</button>
+          <button data-mode="line" aria-pressed="false"><span aria-hidden="true">╱</span> 直线</button>
+          <button data-mode="riser" aria-pressed="false"><span aria-hidden="true">↕</span> 竖线</button>
+        </div>
+        <div class="button-group" aria-label="绘图楼层">
+          <button data-floor="0" aria-pressed="false">一层</button>
+          <button data-floor="1" aria-pressed="true">二层</button>
+        </div>
+        <button id="snap" aria-pressed="true"><span aria-hidden="true">⊕</span> 捕捉</button>
+      </div>
+      <div class="viewport" id="viewport">
+        <canvas id="scene" aria-label="双层三维绘图画布"></canvas>
+        <div class="viewport-top">
+          <div class="view-label"><i></i><span id="view-label">三维视图</span></div>
+          <div class="button-group views" aria-label="视角">
+            <button id="perspective" aria-pressed="true">三维</button>
+            <button data-plan="0" aria-pressed="false">一层俯视</button>
+            <button data-plan="1" aria-pressed="false">二层俯视</button>
+            <button id="fit" title="适配视图">适配</button>
+          </div>
+        </div>
+        <div class="legend" aria-label="图例">
+          <span><i class="upper"></i> 二层直线</span><span><i class="lower"></i> 一层直线</span>
+          <span><i class="riser"></i> 竖线及接驳</span><span><i class="joint"></i> 交点</span>
+        </div>
+      </div>
+      <div class="status"><span id="hint" role="status"></span><span id="coordinates">单位 m</span></div>
+    </section>
+    <aside class="analysis" aria-label="连通分析">
+      <header class="panel-head"><div><h2>点位距离表</h2><p>沿线最短距离 · m</p></div><span id="node-count" class="count"></span></header>
+      <div id="matrix" class="matrix" tabindex="0" aria-label="点位最短距离矩阵"></div>
+      <div class="result" id="result" role="status">点击数字可在图中查看路径</div>
+      <header class="panel-head connectivity-head"><h2>点位连通表</h2></header>
+      <div id="connectivity" class="matrix" tabindex="0" aria-label="点位直接连通关系矩阵"></div>
+      <section class="points" aria-label="点位列表">
+        <header><h3>点位列表</h3><span>X / Y · m</span></header>
+        <div id="points"></div>
+      </section>
+    </aside>
+  </main>
+</body>
+</html>
